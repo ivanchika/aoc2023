@@ -28,4 +28,12 @@ interface Utils {
     static List<Integer> readIntegerList(String path) {
         return readStringList(path).stream().map(Integer::parseInt).toList();
     }
+
+    static String[][] readString2DArrayList(String path) {
+        return readStringList(path).stream().map(s -> s.split("")).toArray(String[][]::new);
+    }
+
+    static char[][] readChar2DArrayList(String path) {
+        return readStringList(path).stream().map(String::toCharArray).toArray(char[][]::new);
+    }
 }
