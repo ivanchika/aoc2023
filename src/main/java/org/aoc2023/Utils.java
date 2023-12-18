@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +13,8 @@ interface Utils {
         try {
             return Files.readAllLines(Path.of(Objects.requireNonNull(Utils.class.getClassLoader().getResource(path)).toURI()));
         } catch (IOException | URISyntaxException e) {
-            System.out.println(e.getMessage()); throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -35,5 +37,11 @@ interface Utils {
 
     static char[][] readChar2DArrayList(String path) {
         return readStringList(path).stream().map(String::toCharArray).toArray(char[][]::new);
+    }
+
+    static int[][] readInt2DArrayList(String path) {
+        return readStringList(path).stream().map(
+                s -> Arrays.stream(s.split("")).map(Integer::parseInt).mapToInt(i -> i).toArray()
+        ).toArray(int[][]::new);
     }
 }
